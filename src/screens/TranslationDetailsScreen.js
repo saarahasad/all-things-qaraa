@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import * as Sahih from '../data/en.sahih.json';
 import * as QuranUthmani from '../data/quran-uthmani.json';
 import { Context as TranslationContext } from '../context/TranslationContext';
-
+import PlayButton from '../components/PlayButton';
 const { height, width } = Dimensions.get('window');
 
 
@@ -90,32 +90,11 @@ const translationLanguages = [
     }
 ];
 
-const Item = ({ item, onPress, style }) => (
-    <TouchableWithoutFeedback onPress={onPress}>
-        <View style={[styles.item, style]}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <View style={styles.controller}>
-                    <TouchableOpacity onPress={onPress} style={{ paddingRight: 10 }}>
-                        <Entypo name="controller-play" size={32} color="#23395D" />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={onPress} >
-                        <MaterialIcons name="favorite-border" size={24} color="#23395D" />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.circle}>
-                    <Text >{item.id}</Text>
-                </View>
-            </View>
-            <Text style={styles.arabicText}>{item.ayah} </Text>
-            <Text style={styles.translationText}>{item.translation}</Text>
-        </View>
-    </TouchableWithoutFeedback>
-);
 
 const TranslationDetailsScreen = () => {
     const [selectedId, setSelectedId] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-    const { state,updateTranslation } = useContext(TranslationContext);
+    const { state, updateTranslation } = useContext(TranslationContext);
 
     var surahData = [];
     var indexSelected = parseInt(state.nav_surah_index);
@@ -124,6 +103,27 @@ const TranslationDetailsScreen = () => {
         surahData.push({ id: Sahih.SahihText[indexSelected - 1].aya[x].index, translation: Sahih.SahihText[indexSelected - 1].aya[x].text, ayah: QuranUthmani.QuranUthmaniText[indexSelected - 1].aya[x].text })
     }
     console.log("TranslationDetailsScreen")
+
+    const Item = ({ item, onPress, style }) => (
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={[styles.item, style]}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <View style={styles.controller}>
+                        <PlayButton onPress={onPress} ayah={item.id} surah={state.nav_surah_title} />
+                        <TouchableOpacity onPress={onPress} >
+                            <MaterialIcons name="favorite-border" size={24} color="#23395D" />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.circle}>
+                        <Text >{item.id}</Text>
+                    </View>
+                </View>
+                <Text style={styles.arabicText}>{item.ayah}  </Text>
+                <Text style={styles.translationText}>{item.translation}</Text>
+            </View>
+        </TouchableWithoutFeedback>
+    );
+
     const renderItem = ({ item }) => {
         const backgroundColor = item.id === selectedId ? "#f9f9f9" : 'white';
         return (
@@ -136,7 +136,7 @@ const TranslationDetailsScreen = () => {
     };
 
     const ItemSectionList = ({ title }) => (
-        <TouchableOpacity style={styles.itemSectionList} onPress={() => {updateTranslation(title)}}>
+        <TouchableOpacity style={styles.itemSectionList} onPress={() => { updateTranslation(title) }}>
             <Text>{title}</Text>
         </TouchableOpacity>
     );
@@ -150,7 +150,7 @@ const TranslationDetailsScreen = () => {
     const renderListHeader = () => {
         return (
             <>
-                <View style={{ margin: 15, alignItems: 'center', marginTop: 25 }}>
+                <View style={{ margin: 15, alignItems: 'center',}}>
                     {
                         parseInt(state.nav_surah_index) == 1 ?
                             null :
@@ -214,7 +214,7 @@ const TranslationDetailsScreen = () => {
                 </View>
             </Modal>
 
-            <TouchableOpacity style={{ marginHorizontal: 25,marginTop:25, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={() => { setModalVisible(true); }}>
+            <TouchableOpacity style={{ marginHorizontal: 25, marginTop: 25, marginBottom: 15, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={() => { setModalVisible(true); }}>
                 <View style={{ flex: 1, zIndex: 100 }}>
                     <View style={styles.translationButton}>
                         <Feather name="book-open" size={20} color="white" />

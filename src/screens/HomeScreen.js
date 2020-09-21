@@ -21,7 +21,8 @@ const HomeScreen = ({ route }) => {
         <Header />
         <View style={styles.container}>
           <View style={{ flex: 9 }}>
-            <Text>Hello</Text>
+            <Text>hello</Text>
+
           </View>
           <View style={{ flex: 1 }}>
           </View>

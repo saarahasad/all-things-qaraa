@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, Text, View, StatusBar, Dimensions, Image } from 'react-native'
+import {Platform,StyleSheet, Text, View, StatusBar, Dimensions, Image } from 'react-native'
 import BottomSheet from 'reanimated-bottom-sheet'
 import Header from '../components/Header';
 import Player from './Player';

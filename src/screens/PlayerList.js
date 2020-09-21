@@ -20,7 +20,7 @@ const PlayerList = ({ route }) => {
     useFocusEffect(
         React.useCallback(() => {
             console.log('PLAYERLIST Screen')
-            
+
         }, [])
     );
 

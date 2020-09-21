@@ -1,12 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AsyncStorage } from 'react-native';
 
-import { StyleSheet, View } from 'react-native';
-import { NavigationContainer, useIsFocused } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator, CardStyleInterpolators, HeaderBackButton } from '@react-navigation/stack';
 
@@ -28,7 +25,6 @@ import SurahIndex from './src/screens/SurahIndex';
 
 import Favourite from './src/components/Favourite';
 
-import { Context as PlayerContext } from './src/context/PlayerContext';
 
 import TranslationtoptabStackScreen from './src/screens/TranslationtoptabStackScreen';
 import ForyoutoptabStackScreen from './src/screens/ForyoutoptabStackScreen';
@@ -37,7 +33,8 @@ import Player from './src/screens/Player';
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import BottomSheetContainer from './src/components/BottomSheetContainer';
+
+
 
 const fetchFonts = () => {
   return Font.loadAsync({
